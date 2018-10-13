@@ -8,6 +8,15 @@ struct my_pair
     T2 second;
 };
 
+class point_loc
+{
+ public:
+    point_loc(int x, int y):data((x << 4) | y){}
+    int x(){return data >> 4;}
+    int y(){return data & 0x0F;}
+ private:
+    uc data;
+};
 
 typedef my_pair<point_loc, point_loc> p_pair;
 
@@ -49,16 +58,6 @@ class point
     void c_player(int player){status = ((status & 0xFB) | player);};
 };
 
-class point_loc
-{
- public:
-    point_loc(int x, int y):data((x << 4) | y){}
-    int x(){return data >> 4;}
-    int y(){return data & 0x0F;}
- private:
-    uc data;
-};
-
 class line
 {
  public:
@@ -75,8 +74,13 @@ class board
     friend class line;
  public:
     board(){}
-
-
+    void start();
+ private:
+    int make_line(point_loc p1, point_loc p2, int player);
+    point_loc choose_point(int point);
+    bool point_validity(point_loc p);
+    
+    point_loc bd[10][10];
 };
 
 

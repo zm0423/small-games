@@ -1,5 +1,6 @@
- 
- 
+#include<fxlib.h>
+#include "board.h"
+
 p_pair point::pre_change(int type, int player) 
 { 
     if(type() == P_EMPTY) 
