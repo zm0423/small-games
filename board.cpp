@@ -1,6 +1,9 @@
 #include<fxlib.h>
 #include "board.h"
 
+namespace board
+{
+
 p_pair point::pre_change(int type, int player) 
 { 
     if(type() == P_EMPTY) 
@@ -65,7 +68,37 @@ void line::circle(int type, int person)
             s -> loc(x1, i) -> change_type(type == 0 ? point::P_EMPTY : point::P_LINE, person, type == 0 ? 0 : this);
 }
 
+void board::start()
+{
+    int player = 0;
+    int win = 0;
+    bd[2][2].change_type(point::P_HEADS, 0);
+    bd[4][4].change_type(point::P_POINT, 0);
+    bd[5][5].change_type(point::P_POINT, 1);
+    bd[7][7].change_type(point::P_HEADS, 1);
+    
+    //player 1 compensate
+    
+    while(1)
+    {
+        point_loc p;
+        do
+        {
+            p = choose_point();
+        }while(!point_validity(p, player));
+        int size = temp.size();
+        for(int i = 0;i != size;++i)
+            if(make_line(p, temp[i], player))
+                win = 1;
+        if(win)break;
+        player = 1 - player;
+    }
+    win(player);
+}
 
 
 
 
+
+
+} //namespace board

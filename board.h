@@ -1,6 +1,11 @@
 #ifndef BOARD_H_
 #define BOARD_H_
 
+#include<vector>
+
+namespace board
+{
+
 tamplate<typename T1, typename T2>
 struct my_pair
 {
@@ -41,7 +46,7 @@ class point
 
     void add(){if(type() == P_LINE)status += 0x08;}
     
-    void lose(){if(type() == P_LINEstatus -= 0x08;}
+    void lose(){if(type() == P_LINE)status -= 0x08;}
 
     int type(){return status & 0x03;}
 
@@ -49,7 +54,7 @@ class point
 
     int player(){return status & 0x04;}
 
-    point():status(0), l(0){}
+    point():status(0), d_l(0){}
 
  private:
     uc status;
@@ -79,10 +84,16 @@ class board
     int make_line(point_loc p1, point_loc p2, int player);
     point_loc choose_point(int point);
     bool point_validity(point_loc p);
+    std::vector<point_loc> temp;
     
     point_loc bd[10][10];
 };
 
+void print()
+
+
+
+} //namespace board
 
 
 
